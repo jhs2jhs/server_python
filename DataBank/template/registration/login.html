@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div> You want to login </div>
+	{% if errors %}
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+<form action="/accounts/login/" method="post">	
+	{% csrf_token %}
+	<input type="text" name="username" value="{{ login.username }}" />
+	<input type="password" name="password" value="{{ login.password }}" />
+	<input type="hidden" name="next" value="{{ login.next }}" />
+	<input type="submit" name="login" value="Login">
+</form>
+
+{% endblock %}

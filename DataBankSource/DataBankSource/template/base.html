@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>CMSource web server</title>
+	<style type="text/css">
+		body {
+			background: #008000;
+			color: #333;
+		}
+	</style>
+	</head>
+	<body>
+		<div><h1><U>CMSource web server</U></h1></div>
+		<div>
+		{% if not user.is_authenticated %}
+			Please: 
+			<a href="/accounts/login/">login</a> 
+			| 
+			<a href="/accounts/register/">register</a>
+		{% else %}
+			Hello: {{ user.name }}
+			<a href="/accounts/logout/">logout</a>
+		{% endif %}
+		</div>
+		
+		<div>{% block content %}{% endblock %}</div>
+	</body>
+</html>

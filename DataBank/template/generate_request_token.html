@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Token List</h2>
+<table>
+<tr>
+	<th>ID</th>
+	<th>Token_Request</th>
+	<th>Token_Private</th><!-- type, timestamp, key, validate, used counts -->
+	<th>Token_Public</th>
+	<th>Action</th>
+</tr>
+{% if tokenmanagers %}
+	{% for tokenmanager in tokenmanagers %}
+	<tr>
+		<td>
+			{{ tokenmanager.id }}<br>
+			{{ tokenmanager.resource }}<br>
+			{{ tokenmanager.consumer }}<br>
+		</td>
+		<td>
+			{{ tokenmanager.request.type }}<br>
+			{{ tokenmanager.request.key }}<br>
+			{{ tokenmanager.request.time_created }}<br>
+			{{ tokenmanager.request.time_validate }}<br>
+			{{ tokenmanager.request.mini_frequency }}<br>
+		</td>
+		<td>
+			{{ tokenmanager.private.type }}<br>
+			{{ tokenmanager.private.key }}<br>
+			{{ tokenmanager.private.time_created }}<br>
+			{{ tokenmanager.private.time_validate }}<br>
+			{{ tokenmanager.private.mini_frequency }}<br>
+		</td>
+		<td>
+			{{ tokenmanager.public.type }}<br>
+			{{ tokenmanager.public.key }}<br>
+			{{ tokenmanager.public.time_created }}<br>
+			{{ tokenmanager.public.time_validate }}<br>
+			{{ tokenmanager.public.mini_frequency }}<br>
+		</td>
+		<td>
+			<form action="" method="POST">
+				<input type="submit" value="Change" />
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+{% endif %}
+</table>
+
+
+<form action="/sauth/generate_request_token/" method="POST">
+<h2>Resoruce & Consumer List</h2>
+	{% csrf_token %}
+	<table>
+	<tr><th>Resource</th><th>Consumer</th></tr>
+	<tr>
+		<td>
+		{% if resources %}
+			<table>
+			{% for resource in resources %}
+			<tr>
+				<td><input type="radio" name="resource_id" value="{{ resource.id }}"></input></td>
+				<td>
+					{{ resource.name }}<br>
+					{{ resource.url }}<br>
+					{{ resource.readonly }}
+				</td>
+			</tr>
+			{% endfor %}
+			</table>
+		{% endif %}
+		</td>
+		<td>
+		{% if consumers %}
+			<table>
+			{% for consumer in consumers %}
+			<tr>
+				<td><input type="radio" name="consumer_id" value="{{ consumer.id }}"></input></td>
+				<td>
+					{{ consumer.name }}<br>
+					{{ consumer.desc }}<br>
+					{{ consumer.key }}<br>
+				</td>
+			</tr>
+			{% endfor %}
+			</table>
+		{% endif %}
+		</td>
+	</tr>
+	</table>
+	<input type="submit" value="Generate" />
+</form>
+
+
+<table>
+<tr>
+<td>
+	<div>
+		<form action="/sauth/resource/add/" method="POST">{% csrf_token %}
+		<h2>Resource:</h2>
+		<table>
+			<tr>
+				<td>name</td>
+				<td><input type="text" name="resource_name" value="{{ resource.name }}" /></td>
+			</tr>
+			<tr>
+				<td>URL</td>
+				<td><input type="text" name="resource_url" value="{{ resource.url }}" /></td>
+			</tr>
+			<tr>
+				<td>READ only?</td>
+				<td><input type="text" name="resource_readonly" value="{{ resource.readonly }}" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="Add Resource" />
+		</form>
+	</div>
+</td><td>
+	<div>
+		<form action="/sauth/consumer/add/" method="POST">{% csrf_token %}
+		<h2>Consumer:</h2>
+		<table>
+			<tr>
+				<td>name</td>
+				<td><input type="text" name="consumer_name" value="{{ resource.name }}" /></td>
+			</tr>
+			<tr>
+				<td>description</td>
+				<td><input type="text" name="consumer_description" value="{{ resource.url }}" /></td>
+			</tr>
+			<tr>
+				<td>identity</td>
+				<td><input type="text" name="consumer_request_target" value="{{ resource.readonly }}" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="Add Consumer" />
+		</form>
+	</div>
+</td>	
+</tr>
+</table>
+
+
+
+{% endblock %}

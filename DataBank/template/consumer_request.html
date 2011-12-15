@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Request to a Data Source</h2>
+<form action="/sauth/consumer_request/" method="POST" > {% csrf_token %}
+<table>
+<tr>
+	<td>URL:</td>
+	<td><input type="text" name="url" value="{{ request.url }}" /></td>
+</tr>
+<tr>
+	<td>Token:</td>
+	<td><input type="text" name="token" value="{{ request.token }}" /></td>
+</tr>
+<tr>
+	<td>Callback:</td>
+	<td><input type="text" name="callback" value="{{ request.callback }}" /></td>
+</tr>
+</table>
+<input type="submit" name="action" value="Detail" />
+<input type="submit" name="action" value="Request" />
+</form>
+
+
+{% if request_pairs %}
+<h2>Request token detail in service provider</h2>
+<table>
+<tr>
+	<th>Key</th><th>Value</th>
+</tr>
+{% for pair in request_pairs %}
+	<tr>
+		<td>{{ pair.key }}</td>
+		<td>{{ pair.value }}</td>
+	</tr>
+{% endfor %}
+</table>
+{% endif %}
+
+
+
+{% if tokenmanager_pairs %}
+<h2>Access Token details</h2>
+<table>
+<tr>
+	<th>Key</th><th>Value</th>
+</tr>
+<tr>
+	<td>Resource</td>
+	<td>{{ tokenmanager_pairs.resource }}</td>
+</tr>
+<tr>
+	<td>consumer</td>
+	<td>{{ tokenmanager_pairs.consumer }}</td>
+</tr>
+<tr>
+	<td>key</td>
+	<td>{{ tokenmanager_pairs.key }}</td>
+</tr>
+<tr>
+	<td>secret</td>
+	<td>{{ tokenmanager_pairs.secret }}</td>
+</tr>
+<tr>
+	<td>Private Access Token</td>
+	<td>
+		{{ tokenmanager_pairs.access_private_token.token_type }}<br>
+		{{ tokenmanager_pairs.access_private_token.token_key }}<br>
+		{{ tokenmanager_pairs.access_private_token.time_validate }}<br>
+		{{ tokenmanager_pairs.access_private_token.mini_frequency }}<br>
+		{{ tokenmanager_pairs.access_private_token.time_created }}<br>
+	</td>
+</tr>
+<tr>
+	<td>Public Access Token</td>
+	<td>
+		{{ tokenmanager_pairs.access_public_token.token_type }}<br>
+		{{ tokenmanager_pairs.access_public_token.token_key }}<br>
+		{{ tokenmanager_pairs.access_public_token.time_validate }}<br>
+		{{ tokenmanager_pairs.access_public_token.mini_frequency }}<br>
+		{{ tokenmanager_pairs.access_public_token.time_created }}<br>
+	</td>
+</tr>
+<tr>
+	<td>Request Token</td>
+	<td>
+		{{ tokenmanager_pairs.request_token.token_type }}<br>
+		{{ tokenmanager_pairs.request_token.token_key }}<br>
+		{{ tokenmanager_pairs.request_token.time_validate }}<br>
+		{{ tokenmanager_pairs.request_token.mini_frequency }}<br>
+		{{ tokenmanager_pairs.request_token.time_created }}<br>
+	</td>
+</tr>
+</table>
+{% endif %}
+
+
+
+{% endblock %}
