@@ -1,0 +1,49 @@
+'''
+Created on Dec 30, 2011
+
+@author: jianhuashao
+'''
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.contrib.auth import REDIRECT_FIELD_NAME
+
+
+NAME_SIZE = 256
+ALIAS_SIZE = 256
+DESCRIPTION_SIZE = 256
+KEY_SIZE = KEY_SIZE = getattr(settings, 'SAUTH_PROVIDER_KEY_SIZE', 32)
+SECRET_SIZE = getattr(settings, 'SAUTH_PROVIDER_SECRET_SIZE', 16)
+
+OBJECT_TYPE_RESOURCE = 1
+OBJECT_TYPE_TOKEN = 2
+OBJECT_TYPES = (
+        (OBJECT_TYPE_RESOURCE, u'Resource'), 
+        (OBJECT_TYPE_TOKEN, u'Token'))
+OBJECT_RESOURCE_SIZE = 256
+
+OBJECT_PERMISSION_READ = 1
+OBJECT_PERMISSION_WRITE = 2
+OBJECT_PERMISSIONS = (
+        (OBJECT_PERMISSION_READ, u'Read'), 
+        (OBJECT_PERMISSION_WRITE, u'Write'))
+
+TOKEN_OPERATION_REGISTER = 1
+TOKEN_OPERATION_MANAGE = 2
+TOKEN_OPERATION_ACCESS = 3
+TOKEN_OPERATIONS = (
+        (TOKEN_OPERATION_REGISTER, u'Register'), 
+        (TOKEN_OPERATION_MANAGE, u'Manage'), 
+        (TOKEN_OPERATION_ACCESS, u'Access'))
+
+TOKEN_STATUS_REQUEST = 1
+TOKEN_STATUS_AUTHORIZE = 2
+TOKEN_STATUS_ACCESS = 3
+TOKEN_STATUS_FINISH = 4
+TOKEN_STATUSS = (
+        (TOKEN_STATUS_REQUEST, u'Request'), 
+        (TOKEN_STATUS_AUTHORIZE, u'Authorize'), 
+        (TOKEN_STATUS_ACCESS, u'Access'), 
+        (TOKEN_STATUS_FINISH, u'Finish'))
+
+
+

@@ -1,4 +1,5 @@
-import DBUtil.sutil as myutil
+import db_util.util as db_util
+import util as um_util
 import re
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -18,8 +19,8 @@ from django.core.context_processors import csrf
 
 def user_login(request, template_name='registration/login.html', redirect_field_name=REDIRECT_FIELD_NAME):
     """Displays the login form and handles the login action."""
-    username = myutil.get_http_param(request, "username")
-    password = myutil.get_http_param(request, "password")
+    username = db_util.get_http_param(request, um_util.USERNAME)
+    password = db_util.get_http_param(request, um_util.PASSWROD)
     errors = []
     #print "************"
     #print request.method
@@ -38,7 +39,7 @@ def user_login(request, template_name='registration/login.html', redirect_field_
             if user.is_active:
                 if not errors:
                     login(request, user)
-                    redirect_to = myutil.get_http_param(request, redirect_field_name)
+                    redirect_to = db_util.get_http_param(request, redirect_field_name)
                     if redirect_to == None:
                         redirect_to = '/user/'+str(user.id)
                     # Redirect to a success page.
@@ -49,11 +50,11 @@ def user_login(request, template_name='registration/login.html', redirect_field_
         else:
             errors.append("this user is not exist")
     context_user = {
-        "username":username,
-        "password":password,
-        "next":myutil.get_http_param(request, redirect_field_name)
+        um_util.USERNAME:username,
+        um_util.PASSWROD:password,
+        um_util.NEXT:db_util.get_http_param(request, redirect_field_name)
         }
-    context = {"errors":errors, "login":context_user, "user":myutil.check_user(request)}
+    context = {"errors":errors, "login":context_user, "user":um_util.check_user(request)}
     context_instance = RequestContext(request)
     # Return an 'invalid login' error message.
     return render_to_response(template_name, context, context_instance)
@@ -99,9 +100,9 @@ def template_test(request):
     print request.session.keys
     print request.session.items()
     context = {
-        "user": myutil.check_user(request),
+        "user": um_util.check_user(request),
             }
-    print myutil.check_user(request)
+    print um_util.check_user(request) 
     return render_to_response("base.html", context)
 
 def user_test(request):

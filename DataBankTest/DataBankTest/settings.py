@@ -1,10 +1,11 @@
-# Django settings for DataBankSource project.
+# Django settings for DataBankTest project.
 
 import os
 import sys
 PROJECT_ROOT=os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "../../DataBank/"))
-TIME_ZONE = 'Asia/Shanghai'
+TIME_ZONE = None
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -18,7 +19,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/jianhuashao/CM-Intern/server_python/DataBankSource/sqlite.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/Users/jianhuashao/CM-Intern/server_python/DataBankTest/sqlite.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -33,6 +34,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
+TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -88,7 +90,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '$1-=h956%s_-i_uvi^76b$z5dew_aho3gunfr&qh1-wzl@e$xe'
+SECRET_KEY = '%w49+75@x0s%@wtsd=+580s!$o8((hy2#t80*o+!aitla!-hf-'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -103,10 +105,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
 )
 
-ROOT_URLCONF = 'DataBankSource.urls'
+ROOT_URLCONF = 'DataBankTest.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -124,12 +125,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    'django.contrib.admindocs',
-    
-    "sauth",
-    "usermanager",
+    # 'django.contrib.admindocs',
+    "DataBankTest",
+    "mytest",
 )
 
 # A sample logging configuration. The only tangible logging

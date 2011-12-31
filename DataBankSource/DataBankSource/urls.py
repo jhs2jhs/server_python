@@ -11,8 +11,8 @@ urlpatterns = patterns('',
     # url(r'^DataBankSource/', include('DataBankSource.foo.urls')),
     url(r'^hello/', hello),
     url(r'^user/', user_home),
-    url(r'^accounts/', include('UserManagement.urls')),
-    url(r'^sauth/', include('SimpleAuth.urls')),
+    url(r'^accounts/', include('usermanager.urls')),
+    url(r'^sauth/', include('sauth.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
