@@ -1,6 +1,4 @@
 # Create your views here.
-
-
 from django.contrib.auth import authenticate, login
 
 from django.http import HttpResponse

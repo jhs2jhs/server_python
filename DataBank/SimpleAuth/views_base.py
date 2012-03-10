@@ -1,4 +1,4 @@
-import DBUtil.sutil as myutil
+import usermanager.util as myutil
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
